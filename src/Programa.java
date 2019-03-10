@@ -2,18 +2,18 @@ import java.util.ArrayList;
 
 public class Programa {
 
-    ArrayList<String> instrucciones;
+    ArrayList<String> lineas;
 
     Programa(ArrayList<String> instrucciones) {
-        this.instrucciones = instrucciones;
+        this.lineas = instrucciones;
     }
 
     Programa() {
-        this.instrucciones = new ArrayList<String>();
+        this.lineas = new ArrayList<String>();
     }
 
     public void addInstruccion(String inst) {
-        this.instrucciones.add(inst);
+        this.lineas.add(inst);
     }
 
 }
