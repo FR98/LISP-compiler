@@ -22,13 +22,8 @@ public class Main {
         } catch (IOException e ){
             System.out.println("Ha ocurrido un error");
         }
-        /*
-        for (String linea : archivo) {
-            System.out.println(linea);
-        }*/
 
         Programa programa = new Programa(archivo);
         InterpreteLISP interprete = new InterpreteLISP(programa);
-        interprete.ejecutar();
     }
 }

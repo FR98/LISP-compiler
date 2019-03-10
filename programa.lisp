@@ -3,10 +3,6 @@
 ;; Comentario dentro del codigo
 ; Comentario despues de linea de codigo
 
-#||
-Comentario de varias lineas
-||#
-
 (setq *print-case* :capitalize)
 
 (format t "Hola Mundo ~%")
@@ -20,7 +16,7 @@ Comentario de varias lineas
 (hello-you *name* )
 
 (print (+ 5 4))
-(print (- 5 4))
+(print (- 5 4)) ;Hola
 (print (* 5 4))
 (print (/ 10 5))
 
