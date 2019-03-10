@@ -11,12 +11,14 @@ public class InterpreteLISP {
 
     public void interpretar() {
         limpiarPrograma();
+        leerPrograma();
         ejecutar();
     }
 
     public void limpiarPrograma() {
         for (String inst : this.programaSucio.instrucciones) {
-            if (inst.length() >= 1) {
+            //Se borran los comentarios
+            if (inst.length() >= 1 && inst.charAt(0) != ';') {
                 String nuevaInst = "";
                 for (int i = 0; i < inst.length(); i++) {
                     if (inst.charAt(i) != ';') {
@@ -25,9 +27,14 @@ public class InterpreteLISP {
                         break;
                     }
                 }
+                //Instrucciones sin comentarios
                 this.programa.addInstruccion(nuevaInst);
             }
         }
+    }
+
+    public void leerPrograma() {
+
     }
 
     public void ejecutar() {
