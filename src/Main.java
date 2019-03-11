@@ -21,6 +21,7 @@ public class Main {
             lines.forEach(archivo::add);
         } catch (IOException e ){
             System.out.println("Ha ocurrido un error");
+            System.out.println("Que joto");
         }
 
         Programa programa = new Programa(archivo);
