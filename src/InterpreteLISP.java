@@ -1,21 +1,22 @@
 public class InterpreteLISP {
 
     Programa programaSucio;
-    Programa programa;
+    //Programa programa;
 
     InterpreteLISP(Programa programaLeido){
         this.programaSucio = programaLeido;
-        this.programa = new Programa();
+        //this.programa = new Programa();
         interpretar();
     }
 
     public void interpretar() {
-        limpiarPrograma();
-        leerPrograma();
-        ejecutar();
+        leerPrograma(limpiarPrograma());
+        ejecutar(limpiarPrograma());
     }
 
-    public void limpiarPrograma() {
+    public String[] limpiarPrograma() {
+        Programa programa = new Programa();
+
         for (String linea : this.programaSucio.lineas) {
             //Se borran los comentarios
             if (linea.length() >= 1 && linea.charAt(0) != ';') {
@@ -28,27 +29,42 @@ public class InterpreteLISP {
                     }
                 }
                 //Instrucciones sin comentarios
-                this.programa.addInstruccion(nuevalinea);
+                programa.addInstruccion(nuevalinea);
+
             }
         }
+
+
+        //Linea de codigo que coloca un espacion entre parentesis para no tomarlo como una palabra
+        String programaClean;
+        programaClean = programa.stringCreator().replaceAll("\\("," ( ").replaceAll("\\)", " ) ");
+        return programaClean.split("\\s+");
+
     }
 
-    public void leerPrograma() {
-        for (String linea : this.programa.lineas) {
+    /**
+     * Lee el archivo .lisp linea por linea
+     */
+    public void leerPrograma(String[] programaClean) {
+        /*for (String linea : this.programa.lineas) {
             for (int i = 0; i < linea.length(); i++) {
                 if (linea.charAt(i) == '(') {
                     //TODO crear instruccion recursivamente
                 }
             }
-        }
+        }*/
 
     }
 
-    public void ejecutar() {
+    public void ejecutar(String[] programaClean) {
         //TODO
-        for (String linea : this.programa.lineas) {
-            System.out.println(linea);
+        String programaSplit = "";
+        for (String linea : programaClean) {
+            programaSplit += linea + " ";
         }
+
+        System.out.println(programaSplit);
+
     }
 
 }

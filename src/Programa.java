@@ -16,4 +16,12 @@ public class Programa {
         this.lineas.add(inst);
     }
 
+    public String stringCreator() {
+        String programa = "";
+        for (String linea: lineas){
+            programa += linea;
+        }
+        return programa;
+    }
+
 }
