@@ -1,23 +1,27 @@
+import models.Programa;
+import models.StackVector;
+
 public class InterpreteLISP {
 
     Programa programaSucio;
-    //Programa programa;
+    //models.Programa programa;
 
     InterpreteLISP(Programa programaLeido){
         this.programaSucio = programaLeido;
-        //this.programa = new Programa();
+        //this.programa = new models.Programa();
         interpretar();
     }
 
     public void interpretar() {
         leerPrograma(limpiarPrograma());
         ejecutar(limpiarPrograma());
+        //ejecutar(leerPrograma(limpiarPrograma()));
     }
 
-    public String[] limpiarPrograma() {
+    public StackVector<String> limpiarPrograma() {
         Programa programa = new Programa();
 
-        for (String linea : this.programaSucio.lineas) {
+        for (String linea : this.programaSucio.getLineas()) {
             //Se borran los comentarios
             if (linea.length() >= 1 && linea.charAt(0) != ';') {
                 String nuevalinea = "";
@@ -34,33 +38,31 @@ public class InterpreteLISP {
             }
         }
 
-
         //Linea de codigo que coloca un espacion entre parentesis para no tomarlo como una palabra
         String programaClean;
         programaClean = programa.stringCreator().replaceAll("\\("," ( ").replaceAll("\\)", " ) ");
-        return programaClean.split("\\s+");
+        StackVector<String> stack = new StackVector<>();
+
+        for (String linea : programaClean.split("\\s+")) {
+            stack.push(linea);
+        }
+
+        return stack;
 
     }
 
     /**
      * Lee el archivo .lisp linea por linea
      */
-    public void leerPrograma(String[] programaClean) {
-        /*for (String linea : this.programa.lineas) {
-            for (int i = 0; i < linea.length(); i++) {
-                if (linea.charAt(i) == '(') {
-                    //TODO crear instruccion recursivamente
-                }
-            }
-        }*/
+    public void leerPrograma(StackVector<String> programaClean) {
 
     }
 
-    public void ejecutar(String[] programaClean) {
+    public void ejecutar(StackVector<String> programaClean) {
         //TODO
         String programaSplit = "";
-        for (String linea : programaClean) {
-            programaSplit += linea + " ";
+        for (int i = 0; i < programaClean.size(); i++) {
+            programaSplit += programaClean.getVector().elementAt(i) + " ";
         }
 
         System.out.println(programaSplit);

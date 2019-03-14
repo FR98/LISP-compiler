@@ -1,4 +1,4 @@
-;;;; Descripcion del  Programa
+;;;; Descripcion del  models.Programa
 ;;; Comentario
 ;; Comentario dentro del codigo
 ; Comentario despues de linea de codigo

@@ -1,19 +1,25 @@
+package models;
+
 import java.util.ArrayList;
 
 public class Programa {
 
     ArrayList<String> lineas;
 
-    Programa(ArrayList<String> instrucciones) {
+    public Programa(ArrayList<String> instrucciones) {
         this.lineas = instrucciones;
     }
 
-    Programa() {
+    public Programa() {
         this.lineas = new ArrayList<String>();
     }
 
     public void addInstruccion(String inst) {
         this.lineas.add(inst);
+    }
+
+    public ArrayList<String> getLineas() {
+        return this.lineas;
     }
 
     public String stringCreator() {
