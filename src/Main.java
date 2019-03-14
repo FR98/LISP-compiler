@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //Para leer el archivo
         Scanner read = new Scanner(System.in);
         System.out.println("Ingrese el nombre del archivo Lisp:");

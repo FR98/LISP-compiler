@@ -10,6 +10,10 @@ public class StackVector<E> extends StackAC<E> {
         vector = new Vector<>();
     }
 
+    public StackVector(int i) {
+        this.vector = new Vector<>(i);
+    }
+
     public Vector<E> getVector() {
         return this.vector;
     }

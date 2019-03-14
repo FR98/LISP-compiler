@@ -2,13 +2,15 @@
 ;;; Comentario
 ;; Comentario dentro del codigo
 ; Comentario despues de linea de codigo
+;(format t "Hola Mundo ~%")
 
-(format t "Hola Mundo ~%")
+(format t "Hola Mundo")
 (print "Como te llamas? ")
 (defvar name (read))
 
 (defun hello-you (name)
-	(format t "Hello ~a! ~%" name)
+    ;(format t "Hello ~a! ~%" name)
+	(format t "Hello" name)
 )
 
 (hello-you name)
