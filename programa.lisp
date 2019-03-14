@@ -4,6 +4,10 @@
 ; Comentario despues de linea de codigo
 ;(format t "Hola Mundo ~%")
 
+(defun hello-you (name)
+    ;(format t "Hello ~a! ~%" name)
+	(format t "Hello" name)
+)
 (format t "Hola Mundo")
 (print "Como te llamas? ")
 (defvar name (read))

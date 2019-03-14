@@ -1,9 +1,5 @@
 import models.Programa;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
+import models.StackVector;
 
 public class InterpreteLISP {
 
@@ -21,12 +17,14 @@ public class InterpreteLISP {
         //ejecutar(limpiarPrograma());
         //ejecutar(leerPrograma(limpiarPrograma()));
         ejecutar(leerPrograma(
-                new ArrayList<String>(Arrays.asList(limpiarPrograma()))
+                //new ArrayList<String>(Arrays.asList(limpiarPrograma()))
+                limpiarPrograma()
         ));
     }
 
-    public String[] limpiarPrograma() {
-        Vector<String> stack = new Vector<>();
+    public StackVector<Object> limpiarPrograma() {
+        //Vector<String> stack = new Vector<>();
+        StackVector<Object> stack = new StackVector<>();
         Programa programa = new Programa();
         String programaClean;
 
@@ -52,30 +50,33 @@ public class InterpreteLISP {
         String[] programaSplitLista = programaClean.trim().split("\\s+");
 
         for (String linea : programaClean.trim().split("\\s+")) {
-            stack.add(linea);
+            //stack.add(linea);
+            stack.push(linea);
         }
-        //return stack;
-        return programaSplitLista;
+        return stack;
+        //return programaSplitLista;
 
     }
 
     /**
      * Lee el archivo .lisp linea por linea
      */
-    public Object leerPrograma(List<String> programaClean) throws Exception {
-        if (programaClean.isEmpty()) {
+    public Object leerPrograma(StackVector<Object> programaClean) throws Exception {
+        if (programaClean.empty()) {
             throw new IllegalArgumentException("Unexpected EOF while reading");
         }
-        String sec = programaClean.remove(0);
+        //String sec = programaClean.remove(0);
+        Object sec = programaClean.getVector().remove(0);
         System.out.println(sec);
 
         if (sec.equals("(")) {
-            List<Object> inst = new ArrayList<Object>(programaClean.size() - 1);
-            while (!programaClean.get(0).equals(")")) {
-                inst.add(leerPrograma(programaClean));
+            //List<Object> inst = new ArrayList<Object>(programaClean.size() - 1);
+            StackVector<Object> inst = new StackVector<>(programaClean.size() - 1);
+            while (!programaClean.getVector().get(0).equals(")")) {
+                //inst.add(leerPrograma(programaClean));
+                inst.push(leerPrograma(programaClean));
             }
-            System.out.println("Hola11");
-            programaClean.remove(0);
+            programaClean.getVector().remove(0);
             return inst;
         } else {
             //Vector<Object> v = new Vector<Object>();
