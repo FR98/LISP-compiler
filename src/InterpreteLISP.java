@@ -61,17 +61,18 @@ public class InterpreteLISP {
     /**
      * Lee el archivo .lisp linea por linea
      */
-    public Object leerPrograma(StackVector<Object> programaClean) throws Exception {
+    public StackVector<Object> leerPrograma(StackVector<Object> programaClean) throws Exception {
         if (programaClean.empty()) {
             throw new IllegalArgumentException("Unexpected EOF while reading");
         }
         //String sec = programaClean.remove(0);
         Object sec = programaClean.getVector().remove(0);
-        System.out.println(sec);
+        //System.out.println(sec);
 
         if (sec.equals("(")) {
             //List<Object> inst = new ArrayList<Object>(programaClean.size() - 1);
             StackVector<Object> inst = new StackVector<>(programaClean.size() - 1);
+
             while (!programaClean.getVector().get(0).equals(")")) {
                 //inst.add(leerPrograma(programaClean));
                 inst.push(leerPrograma(programaClean));
@@ -79,23 +80,26 @@ public class InterpreteLISP {
             programaClean.getVector().remove(0);
             return inst;
         } else {
-            //Vector<Object> v = new Vector<Object>();
-            //v.push(sec);
-            return sec;
+            StackVector<Object> v = new StackVector<Object>();
+            v.push(sec);
+            return v;
+            //return sec;
         }
     }
 
-    public void ejecutar(Object programaClean) {
+    public void ejecutar(StackVector<Object> programaClean) {
         //TODO
-        /*
-        String programaSplit = "";
-        for (int i = 0; i < programaClean.size(); i++) {
-            programaSplit += programaClean.getVector().elementAt(i);
-            System.out.println(programaClean.getVector().elementAt(i));
-        }
-        System.out.println(programaSplit);
-        */
+        vectorToString(programaClean);
+    }
 
+    public void vectorToString(StackVector programaClean) {
+        for (int i = 0; i < programaClean.size(); i++) {
+            if (programaClean.getVector().elementAt(i).getClass() == programaClean.getClass()) {
+                vectorToString((StackVector) programaClean.getVector().elementAt(i));
+            } else {
+                System.out.println(programaClean.getVector().elementAt(i));
+            }
+        }
     }
 
 }
