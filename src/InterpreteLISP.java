@@ -90,12 +90,20 @@ public class InterpreteLISP {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             for (int i = 0; i < programa.size(); i++) {
-                /*if (programa.getVector().elementAt(i) instanceof StackVector) {
+                if (programa.getVector().elementAt(i) instanceof StackVector) {
                     ejecutar(programa.getVector().elementAt(i));
                 } else {
-                    System.out.println(programa.getVector().elementAt(i));
-                }*/
-                ejecutar(programa.getVector().elementAt(i));
+                    Object sec = (programa.getVector().firstElement());
+
+                    if (sec instanceof String) {
+                        Object nuevoSec = stringA_Tipo((String) sec);
+
+                        if (nuevoSec.equals("+")) {
+
+                        }
+                    }
+                }
+                //ejecutar(programa.getVector().elementAt(i));
             }
         } else if (pr instanceof String) {
             System.out.println(pr);
