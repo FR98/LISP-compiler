@@ -84,57 +84,17 @@ public class InterpreteLISP {
 
         }*/
         //vectorToString(pr);
-        System.out.println("");
-        System.out.println("Ejecutandose...");
+        //System.out.println("");
 
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             for (int i = 0; i < programa.size(); i++) {
-                if (programa.getVector().elementAt(i) instanceof StackVector) {
-                    ejecutar(programa.getVector().elementAt(i));
-                } else {
-                    Object sec = (programa.getVector().firstElement());
-                    System.out.println(sec);
-                    if (sec instanceof String) {
-                        if (sec.equals("+")) {
-                            //TODO
-                            System.out.println("SUMA");
-                        } else if (sec.equals("-")) {
-                            //TODO
-                        } else if (sec.equals("*")) {
-                            //TODO
-                        } else if (sec.equals("/")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("DEFUN")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("ATOM")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("LIST")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("EQUAL")) {
-                            //TODO
-                        } else if (sec.equals("<")) {
-                            //TODO
-                        } else if (sec.equals(">")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("COND")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("FORMAT")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("SETF")) {
-                            //TODO
-                        } else if (((String) sec).toUpperCase().equals("PRINT")) {
-                            //TODO
-                        }
-                    }
-                }
-                //ejecutar(programa.getVector().elementAt(i));
+                ejecutar(programa.getVector().elementAt(i));
+                //reconocer(programa.getVector().elementAt(i));
             }
 
         } else if (pr instanceof String) {
-            System.out.println(pr);
+            reconocer(pr);
         }
 
 
@@ -142,8 +102,52 @@ public class InterpreteLISP {
 
     }
 
-    public Object reconocer() {
+    public Object reconocer(Object pr) {
+        if (pr instanceof StackVector) {
+            StackVector programa = (StackVector) pr;
+            Object sec = (programa.getVector().firstElement());
+            System.out.println(sec);
+            if (sec instanceof String) {
+                if (sec.equals("+")) {
+                    //TODO
+                    System.out.println("SUMA");
+                    System.out.println(sec);
+                } else if (sec.equals("-")) {
+                    //TODO
+                } else if (sec.equals("*")) {
+                    //TODO
+                } else if (sec.equals("/")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("DEFUN")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("ATOM")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("LIST")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("EQUAL")) {
+                    //TODO
+                } else if (sec.equals("<")) {
+                    //TODO
+                } else if (sec.equals(">")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("COND")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("FORMAT")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("SETF")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("PRINT")) {
+                    //TODO
+                }
+            }
 
+        } else if (pr instanceof String) {
+            System.out.println(pr);
+        } else if (pr instanceof Integer) {
+            System.out.println(pr);
+        }
 
 
         return "";
