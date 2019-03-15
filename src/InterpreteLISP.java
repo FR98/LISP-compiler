@@ -147,19 +147,25 @@ public class InterpreteLISP {
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
                     List lst1 = (List) reconocer(programa.getVector().elementAt(1));
                     List lst2 = (List) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(comparar(lst1, lst2));
-                    return comparar(lst1, lst2);
+                    System.out.println(esIgual(lst1, lst2));
+                    return esIgual(lst1, lst2);
+                } else if (sec.equals("=") || ((String) sec).toUpperCase().equals("EQ")) {
+                    Object e1 = reconocer(programa.getVector().elementAt(1));
+                    Object e2 = reconocer(programa.getVector().elementAt(2));
+                    System.out.println(esIgual(e1, e2));
+                    return esIgual(e1, e2);
                 } else if (sec.equals("<")) {
-                    //TODO
+                    Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(comparar("<",e1, e2));
+                    return comparar("<",e1, e2);
                 } else if (sec.equals(">")) {
-                    //TODO
+                    Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(comparar(">",e1, e2));
+                    return comparar(">",e1, e2);
                 } else if (((String) sec).toUpperCase().equals("COND")) {
                     //TODO
-                } else if (((String) sec).toUpperCase().equals("EQ")) {
-                    Object el1 = reconocer(programa.getVector().elementAt(1));
-                    Object el2 = reconocer(programa.getVector().elementAt(2));
-                    System.out.println(comparar(el1, el2));
-                    return comparar(el1, el2);
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
@@ -209,12 +215,30 @@ public class InterpreteLISP {
         }
     }
 
-    public String comparar(Object e1, Object e2) {
+    public String esIgual(Object e1, Object e2) {
         if (e1.equals(e2)) {
             return "TRUE";
         } else {
             return "NIL";
         }
+    }
+
+    public Boolean comparar(String comp, Integer e1, Integer e2) {
+        if (comp.equals("<")) {
+            if (e1 < e2) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (comp.equals(">")){
+            if (e1 > e2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     public void vectorToString(Object pr) {
