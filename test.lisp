@@ -29,9 +29,9 @@
         (queTanBienLeCaigoADiego "Juanito") ; multiplicado por que tan bien me caen
     )
 )
-(ATOM (LIST 1 2 3 4 5)) ; prueba si la lista es un atom, devuelve NIL
-(factorial 7) ; 5040
-(cuantosPuntosVoyASacarSiNoHeEmpezado 100) ; 0
+(print (ATOM (LIST 1 2 3 4 5))) ; NIL
+(print (factorial 7)) ; 5040
+(print (cuantosPuntosVoyASacarSiNoHeEmpezado 100)) ; 0
 
 ; Si todo funciona sacan pueden sacar 100
 ; Puntos extra: WRITE CAR CDR LAST MEMBER APPEND... cualquier otro predicado
