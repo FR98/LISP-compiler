@@ -70,7 +70,7 @@ public class InterpreteLISP {
             programa.getVector().remove(0);
             return inst;
         } else {
-            return sec;
+            return stringA_Tipo((String) sec);
         }
     }
 
@@ -94,26 +94,59 @@ public class InterpreteLISP {
                     ejecutar(programa.getVector().elementAt(i));
                 } else {
                     Object sec = (programa.getVector().firstElement());
-
+                    System.out.println(sec);
                     if (sec instanceof String) {
-                        Object nuevoSec = stringA_Tipo((String) sec);
-
-                        if (nuevoSec.equals("+")) {
-
+                        if (sec.equals("+")) {
+                            //TODO
+                            System.out.println("SUMA");
+                        } else if (sec.equals("-")) {
+                            //TODO
+                        } else if (sec.equals("*")) {
+                            //TODO
+                        } else if (sec.equals("/")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("DEFUN")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("ATOM")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("LIST")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("EQUAL")) {
+                            //TODO
+                        } else if (sec.equals("<")) {
+                            //TODO
+                        } else if (sec.equals(">")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("COND")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("FORMAT")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("SETF")) {
+                            //TODO
+                        } else if (((String) sec).toUpperCase().equals("PRINT")) {
+                            //TODO
                         }
                     }
                 }
                 //ejecutar(programa.getVector().elementAt(i));
             }
+
         } else if (pr instanceof String) {
             System.out.println(pr);
         }
 
 
+        return "";
+
+    }
+
+    public Object reconocer() {
+
 
 
         return "";
-
     }
 
     public Object stringA_Tipo(String dato) {

@@ -13,6 +13,7 @@
 ;Definicion de funciones
 (defun hello-you (name)
     ;(format t "Hello ~a! ~%" name)
+	(print "HOLA")
 	(format t "Hello" name)
 )
 
