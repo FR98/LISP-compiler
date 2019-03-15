@@ -12,9 +12,7 @@
 
 ;Definicion de funciones
 (defun hello-you (name)
-    ;(format t "Hello ~a! ~%" name)
-	(print "HOLA")
-	(format t "Hello" name)
+    (format t "Hello ~a! ~%" name)
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >
@@ -25,8 +23,8 @@
 ;Otras
 (format t "Hola Mundo")
 (print "Como te llamas? ")
-(defvar name (read))
-(hello-you name)
+(defvar name "Willi")
+(hello-you "Willi")
 (defvar num 0)
 (setf num 6)
 (print num)
@@ -35,9 +33,7 @@
 ;9
 ;1
 ;20
-;2
-;Hola Mundo
-;"Como te llamas ? "
+;2 Hola Mundo
+;"Como te llamas ? " Hello Willi!
 ;
-;"HOLA" Hello
 ;6

@@ -1,11 +1,12 @@
 import models.Programa;
 import models.StackVector;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class InterpreteLISP {
 
     Programa programaSucio;
+    HashMap<String, StackVector> funciones = new HashMap<>();
 
     InterpreteLISP(Programa programaLeido) throws Exception {
         this.programaSucio = programaLeido;
@@ -13,10 +14,7 @@ public class InterpreteLISP {
     }
 
     public void interpretar() throws Exception {
-        ejecutar(leerPrograma(
-                //new ArrayList<String>(Arrays.asList(limpiarPrograma()))
-                limpiarPrograma()
-        ));
+        ejecutar(leerPrograma(limpiarPrograma()));
     }
 
     public StackVector<Object> limpiarPrograma() {
@@ -44,13 +42,11 @@ public class InterpreteLISP {
 
         //Linea de codigo que coloca un espacion entre parentesis para no tomarlo como una palabra
         programaClean = programa.stringCreator().replaceAll("\\("," ( ").replaceAll("\\)", " ) ");
-        String[] programaSplitLista = programaClean.trim().split("\\s+");
 
         for (String linea : programaClean.trim().split("\\s+")) {
             stack.push(linea);
         }
 
-        //return programaSplitLista;
         return stack;
     }
 
@@ -129,8 +125,9 @@ public class InterpreteLISP {
                     return num1 / num2;
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
                     String nombre = (String) reconocer(programa.getVector().elementAt(1));
-                    //List parametro = (List) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(nombre);
+                    StackVector parametro = (StackVector) programa.getVector().elementAt(2);
+                    this.funciones.put(nombre, programa);
+                    System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
@@ -151,6 +148,16 @@ public class InterpreteLISP {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("PRINT")) {
                     //TODO
+                } else {
+                    StackVector funcion = this.funciones.get(sec);
+                    if (programa.size() >= 2) {
+                        String parametro = (String) reconocer(programa.getVector().elementAt(1));
+                        //TODO: LOGICA PARA EVALUAR LA FUNCION CON EL PARAMETRO INGRESADO
+
+                        System.out.println(sec+" ("+parametro+") = ");
+                    }
+
+
                 }
             }
 
