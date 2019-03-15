@@ -30,3 +30,14 @@
 (defvar num 0)
 (setf num 6)
 (print num)
+
+;Este programa retorna:
+;9
+;1
+;20
+;2
+;Hola Mundo
+;"Como te llamas ? "
+;
+;"HOLA" Hello
+;6

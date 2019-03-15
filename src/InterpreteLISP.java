@@ -96,9 +96,7 @@ public class InterpreteLISP {
             reconocer(pr);
         }
 
-
         return "";
-
     }
 
     public Object reconocer(Object pr) {
@@ -108,14 +106,25 @@ public class InterpreteLISP {
             if (sec instanceof String) {
                 ejecutar(programa);
                 if (sec.equals("+")) {
-                    //TODO
-                    System.out.println("SUMA");
+                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(num1 + num2);
+                    return num1 + num2;
                 } else if (sec.equals("-")) {
-                    //TODO
+                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(num1 - num2);
+                    return num1 - num2;
                 } else if (sec.equals("*")) {
-                    //TODO
+                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(num1 * num2);
+                    return num1 * num2;
                 } else if (sec.equals("/")) {
-                    //TODO
+                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(num1 / num2);
+                    return num1 / num2;
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
@@ -142,13 +151,15 @@ public class InterpreteLISP {
             }
 
         } else if (pr instanceof String) {
-            System.out.println(pr);
+            //TODO
+            //System.out.println(pr);
+            return pr;
         } else if (pr instanceof  Integer) {
-            System.out.println(pr);
+            //TODO
+            //System.out.println(pr);
+            return pr;
         }
-
-
-        return "";
+        return pr;
     }
 
     public Object stringA_Tipo(String dato) {
