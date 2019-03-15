@@ -121,7 +121,7 @@ public class InterpreteLISP {
                     StackVector parametro = (StackVector) programa.getVector().elementAt(2);
                     this.funciones.put(nombre, programa);
                     //TODO: FALTA LEER LA FUNCION
-                    System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
+                    //System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
 
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     Object algo = reconocer(programa.getVector().elementAt(1));
@@ -166,7 +166,7 @@ public class InterpreteLISP {
                 } else if (((String) sec).toUpperCase().equals("COND")) {
                     //TODO
                     for (int i = 0; i < programa.size(); i++) {
-                        System.out.println(reconocer(programa.getVector().elementAt(1)));
+                        //System.out.println(reconocer(programa.getVector().elementAt(1)));
                     }
 
 
@@ -181,15 +181,65 @@ public class InterpreteLISP {
 
                 } else if (((String) sec).toUpperCase().equals("PRINT")) {
                     //TODO
-                    System.out.println();
+                    //System.out.println(reconocer(programa));
 
                 } else {
                     StackVector funcion = this.funciones.get(sec);
-                    if (programa.size() >= 2) {
-                        String parametro = (String) reconocer(programa.getVector().elementAt(1));
-                        //TODO: LOGICA PARA EVALUAR LA FUNCION CON EL PARAMETRO INGRESADO
+                    if (funcion != null) {
+                        if (programa.size() >= 2) {
+                            StackVector parametros = (StackVector) funcion.getVector().elementAt(2);
+                            StackVector ingresados = new StackVector<Object>();
+                            for (int i = 1; i < programa.size(); i++) {
+                                ingresados.push(reconocer(programa.getVector().elementAt(i)));
+                            }
 
-                        System.out.println(sec+" ("+parametro+") = ");
+                            //vectorToString(parametros);
+
+                            StackVector funcionNueva = new StackVector();
+
+                            System.out.println();
+                            for (int i = 3; i < funcion.size(); i++) {
+                                funcionNueva.push(funcion.getVector().elementAt(i));
+                            }
+
+                            for (int i = 0; i < parametros.size(); i++) {
+                                String parametro = (String) parametros.getVector().elementAt(i);
+                                String ingresado = (String) ingresados.getVector().elementAt(i);
+
+                                for (int j = 0; j < funcionNueva.size(); j++) {
+
+                                    if (funcionNueva.getVector().elementAt(j) instanceof StackVector) {
+                                        StackVector p = (StackVector) funcionNueva.getVector().elementAt(j);
+                                        for (int h = 0; h < p.size(); h++) {
+                                            if (p.getVector().elementAt(h) instanceof StackVector) {
+                                                vectorToString(p.getVector().elementAt(h));
+                                            } else {
+
+                                                System.out.println("HOLABVCF");
+                                                if (p.getVector().elementAt(h) == parametro) {
+                                                    funcionNueva.getVector().set(i, ingresado);
+
+                                                }
+
+                                            }
+                                        }
+                                    } else {
+                                        System.out.print("Problema");
+                                    }
+                                }
+                            }
+
+                            Object resultado = reconocer(funcionNueva);
+                            vectorToString(funcionNueva);
+
+
+                            System.out.println();
+                            System.out.print(sec+" (");
+                            vectorToString(ingresados);
+                            System.out.print(") = ");
+                            System.out.println(resultado);
+
+                        }
                     }
                 }
             }
@@ -250,13 +300,17 @@ public class InterpreteLISP {
                 if (programa.getVector().elementAt(i) instanceof StackVector) {
                     vectorToString(programa.getVector().elementAt(i));
                 } else {
-                    System.out.println(programa.getVector().elementAt(i));
+                    System.out.print(programa.getVector().elementAt(i) + " ");
                 }
             }
         } else {
-            System.out.println("Problema");
+            System.out.print("Problema");
         }
 
+    }
+
+    private Object parametrosA_Ingresado() {
+        return "";
     }
 
 }
