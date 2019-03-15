@@ -1,6 +1,8 @@
 import models.Programa;
 import models.StackVector;
 
+import java.util.List;
+
 public class InterpreteLISP {
 
     Programa programaSucio;
@@ -126,7 +128,9 @@ public class InterpreteLISP {
                     System.out.println(num1 / num2);
                     return num1 / num2;
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
-                    //TODO
+                    String nombre = (String) reconocer(programa.getVector().elementAt(1));
+                    //List parametro = (List) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(nombre);
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
