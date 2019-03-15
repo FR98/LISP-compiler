@@ -1,7 +1,9 @@
 import models.Programa;
 import models.StackVector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InterpreteLISP {
 
@@ -132,7 +134,13 @@ public class InterpreteLISP {
                     Object algo = reconocer(programa.getVector().elementAt(1));
                     System.out.println(isAtom(algo));
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
-                    //TODO
+                    List miLista = new ArrayList();
+                    StringBuilder miListaString = new StringBuilder();
+                    for (int i = 1; i < programa.size(); i++) {
+                        miLista.add(reconocer(programa.getVector().elementAt(i)));
+                        miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
+                    }
+                    System.out.println("Mi Lista: " + miListaString);
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
                     //TODO
                 } else if (sec.equals("<")) {
