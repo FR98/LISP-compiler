@@ -165,6 +165,10 @@ public class InterpreteLISP {
 
                 } else if (((String) sec).toUpperCase().equals("COND")) {
                     //TODO
+                    for (int i = 0; i < programa.size(); i++) {
+                        System.out.println(reconocer(programa.getVector().elementAt(1)));
+                    }
+
 
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
@@ -177,6 +181,7 @@ public class InterpreteLISP {
 
                 } else if (((String) sec).toUpperCase().equals("PRINT")) {
                     //TODO
+                    System.out.println();
 
                 } else {
                     StackVector funcion = this.funciones.get(sec);

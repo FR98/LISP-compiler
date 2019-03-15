@@ -26,6 +26,11 @@
 (print (< 5 3))
 
 ;Condiciones
+(print
+    (COND ((< 4 5) "suspenso")
+          ((< 4 7) "aprobado")
+    )
+)
 
 ;Otras
 (format t "Hola Mundo")
