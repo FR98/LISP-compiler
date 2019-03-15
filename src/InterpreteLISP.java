@@ -97,30 +97,37 @@ public class InterpreteLISP {
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(num1 + num2);
                     return num1 + num2;
+
                 } else if (sec.equals("-")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(num1 - num2);
                     return num1 - num2;
+
                 } else if (sec.equals("*")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(num1 * num2);
                     return num1 * num2;
+
                 } else if (sec.equals("/")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(num1 / num2);
                     return num1 / num2;
+
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
                     String nombre = (String) reconocer(programa.getVector().elementAt(1));
                     StackVector parametro = (StackVector) programa.getVector().elementAt(2);
                     this.funciones.put(nombre, programa);
+                    //TODO: FALTA LEER LA FUNCION
                     System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
+
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     Object algo = reconocer(programa.getVector().elementAt(1));
                     System.out.println(isAtom(algo));
                     return isAtom(algo);
+
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
                     List miLista = new ArrayList();
                     StringBuilder miListaString = new StringBuilder();
@@ -131,36 +138,46 @@ public class InterpreteLISP {
                     //TODO: NO SE PORQUE SE IMPRIME DOBLE LA LISTA
                     //System.out.println("Mi Lista: " + miListaString);
                     return miLista;
+
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
                     List lst1 = (List) reconocer(programa.getVector().elementAt(1));
                     List lst2 = (List) reconocer(programa.getVector().elementAt(2));
                     System.out.println(esIgual(lst1, lst2));
                     return esIgual(lst1, lst2);
+
                 } else if (sec.equals("=") || ((String) sec).toUpperCase().equals("EQ")) {
                     Object e1 = reconocer(programa.getVector().elementAt(1));
                     Object e2 = reconocer(programa.getVector().elementAt(2));
                     System.out.println(esIgual(e1, e2));
                     return esIgual(e1, e2);
+
                 } else if (sec.equals("<")) {
                     Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(comparar("<",e1, e2));
                     return comparar("<",e1, e2);
+
                 } else if (sec.equals(">")) {
                     Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
                     System.out.println(comparar(">",e1, e2));
                     return comparar(">",e1, e2);
+
                 } else if (((String) sec).toUpperCase().equals("COND")) {
                     //TODO
+
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
+
                 } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
                     //TODO
+
                 } else if (((String) sec).toUpperCase().equals("SETF")) {
                     //TODO
+
                 } else if (((String) sec).toUpperCase().equals("PRINT")) {
                     //TODO
+
                 } else {
                     StackVector funcion = this.funciones.get(sec);
                     if (programa.size() >= 2) {
