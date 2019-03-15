@@ -147,8 +147,8 @@ public class InterpreteLISP {
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
                     List lst1 = (List) reconocer(programa.getVector().elementAt(1));
                     List lst2 = (List) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(compararListas(lst1, lst2));
-                    return compararListas(lst1, lst2);
+                    System.out.println(comparar(lst1, lst2));
+                    return comparar(lst1, lst2);
                 } else if (sec.equals("<")) {
                     //TODO
                 } else if (sec.equals(">")) {
@@ -156,7 +156,10 @@ public class InterpreteLISP {
                 } else if (((String) sec).toUpperCase().equals("COND")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("EQ")) {
-                    //TODO
+                    Object el1 = reconocer(programa.getVector().elementAt(1));
+                    Object el2 = reconocer(programa.getVector().elementAt(2));
+                    System.out.println(comparar(el1, el2));
+                    return comparar(el1, el2);
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
@@ -177,12 +180,8 @@ public class InterpreteLISP {
             }
 
         } else if (pr instanceof String) {
-            //TODO
-            //System.out.println(pr);
             return pr;
         } else if (pr instanceof  Integer) {
-            //TODO
-            //System.out.println(pr);
             return pr;
         }
         return pr;
@@ -210,8 +209,8 @@ public class InterpreteLISP {
         }
     }
 
-    public String compararListas(List li1, List li2) {
-        if (li1.equals(li2)) {
+    public String comparar(Object e1, Object e2) {
+        if (e1.equals(e2)) {
             return "TRUE";
         } else {
             return "NIL";
