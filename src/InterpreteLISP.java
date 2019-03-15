@@ -133,6 +133,7 @@ public class InterpreteLISP {
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     Object algo = reconocer(programa.getVector().elementAt(1));
                     System.out.println(isAtom(algo));
+                    return isAtom(algo);
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
                     List miLista = new ArrayList();
                     StringBuilder miListaString = new StringBuilder();
@@ -140,14 +141,21 @@ public class InterpreteLISP {
                         miLista.add(reconocer(programa.getVector().elementAt(i)));
                         miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
                     }
-                    System.out.println("Mi Lista: " + miListaString);
+                    //TODO: NO SE PORQUE SE IMPRIME DOBLE LA LISTA
+                    //System.out.println("Mi Lista: " + miListaString);
+                    return miLista;
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
-                    //TODO
+                    List lst1 = (List) reconocer(programa.getVector().elementAt(1));
+                    List lst2 = (List) reconocer(programa.getVector().elementAt(2));
+                    System.out.println(compararListas(lst1, lst2));
+                    return compararListas(lst1, lst2);
                 } else if (sec.equals("<")) {
                     //TODO
                 } else if (sec.equals(">")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("COND")) {
+                    //TODO
+                } else if (((String) sec).toUpperCase().equals("EQ")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
@@ -165,8 +173,6 @@ public class InterpreteLISP {
 
                         System.out.println(sec+" ("+parametro+") = ");
                     }
-
-
                 }
             }
 
@@ -198,6 +204,14 @@ public class InterpreteLISP {
         if (algo instanceof String) {
             return "TRUE";
         } else if (algo instanceof Integer) {
+            return "TRUE";
+        } else {
+            return "NIL";
+        }
+    }
+
+    public String compararListas(List li1, List li2) {
+        if (li1.equals(li2)) {
             return "TRUE";
         } else {
             return "NIL";

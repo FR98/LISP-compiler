@@ -18,6 +18,8 @@
 ;Predicados ATOM, LIST, EQUAL, <, >
 (print (ATOM 1))
 (print (ATOM (LIST 1 2 3 4 5)))
+(print (EQUAL (LIST 1 2 3 4 5) (LIST 1 2 3 4 5)))
+(print (EQUAL (LIST 1 2 5 4 5) (LIST 1 2 3 4 5)))
 
 ;Condiciones
 
