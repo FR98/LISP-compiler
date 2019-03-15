@@ -16,7 +16,8 @@
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >
-
+(ATOM 1)
+(ATOM (LIST 1 2 3 4 5))
 
 ;Condiciones
 

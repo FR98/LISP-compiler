@@ -129,7 +129,8 @@ public class InterpreteLISP {
                     this.funciones.put(nombre, programa);
                     System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
-                    //TODO
+                    Object algo = reconocer(programa.getVector().elementAt(1));
+                    System.out.println(isAtom(algo));
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
                     //TODO
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
@@ -182,6 +183,16 @@ public class InterpreteLISP {
             } catch (NumberFormatException exc2) {
                 return dato;
             }
+        }
+    }
+
+    public String isAtom(Object algo) {
+        if (algo instanceof String) {
+            return "TRUE";
+        } else if (algo instanceof Integer) {
+            return "TRUE";
+        } else {
+            return "NIL";
         }
     }
 
