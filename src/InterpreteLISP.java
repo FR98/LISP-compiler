@@ -4,18 +4,13 @@ import models.StackVector;
 public class InterpreteLISP {
 
     Programa programaSucio;
-    //models.Programa programa;
 
     InterpreteLISP(Programa programaLeido) throws Exception {
         this.programaSucio = programaLeido;
-        //this.programa = new models.Programa();
         interpretar();
     }
 
     public void interpretar() throws Exception {
-        //leerPrograma(limpiarPrograma());
-        //ejecutar(limpiarPrograma());
-        //ejecutar(leerPrograma(limpiarPrograma()));
         ejecutar(leerPrograma(
                 //new ArrayList<String>(Arrays.asList(limpiarPrograma()))
                 limpiarPrograma()
@@ -23,11 +18,11 @@ public class InterpreteLISP {
     }
 
     public StackVector<Object> limpiarPrograma() {
-        //Vector<String> stack = new Vector<>();
         StackVector<Object> stack = new StackVector<>();
         Programa programa = new Programa();
         String programaClean;
 
+        programa.addInstruccion("(");
         for (String linea : this.programaSucio.getLineas()) {
             //Se borran los comentarios
             if (linea.length() >= 1 && linea.charAt(0) != ';') {
@@ -43,63 +38,103 @@ public class InterpreteLISP {
                 programa.addInstruccion(nuevalinea);
             }
         }
+        programa.addInstruccion(")");
 
         //Linea de codigo que coloca un espacion entre parentesis para no tomarlo como una palabra
         programaClean = programa.stringCreator().replaceAll("\\("," ( ").replaceAll("\\)", " ) ");
-
         String[] programaSplitLista = programaClean.trim().split("\\s+");
 
         for (String linea : programaClean.trim().split("\\s+")) {
-            //stack.add(linea);
             stack.push(linea);
         }
-        return stack;
-        //return programaSplitLista;
 
+        //return programaSplitLista;
+        return stack;
     }
 
     /**
      * Lee el archivo .lisp linea por linea
      */
-    public StackVector<Object> leerPrograma(StackVector<Object> programaClean) throws Exception {
-        if (programaClean.empty()) {
+    public Object leerPrograma(StackVector<Object> programa) throws Exception {
+        if (programa.empty()) {
             throw new IllegalArgumentException("Unexpected EOF while reading");
         }
-        //String sec = programaClean.remove(0);
-        Object sec = programaClean.getVector().remove(0);
-        //System.out.println(sec);
+        Object sec = programa.getVector().remove(0);
 
         if (sec.equals("(")) {
-            //List<Object> inst = new ArrayList<Object>(programaClean.size() - 1);
-            StackVector<Object> inst = new StackVector<>(programaClean.size() - 1);
+            StackVector<Object> inst = new StackVector<>(programa.size() - 1);
 
-            while (!programaClean.getVector().get(0).equals(")")) {
-                //inst.add(leerPrograma(programaClean));
-                inst.push(leerPrograma(programaClean));
+            while (!programa.getVector().get(0).equals(")")) {
+                inst.push(leerPrograma(programa));
             }
-            programaClean.getVector().remove(0);
+            programa.getVector().remove(0);
             return inst;
         } else {
-            StackVector<Object> v = new StackVector<Object>();
-            v.push(sec);
-            return v;
-            //return sec;
+            return sec;
         }
     }
 
-    public void ejecutar(StackVector<Object> programaClean) {
-        //TODO
-        vectorToString(programaClean);
+    public Object ejecutar(Object pr) {
+        /*
+        if (pr instanceof StackVector) {
+            StackVector programa = (StackVector) pr;
+            for (int i = 0; i < programa.size(); i++) {
+                System.out.println(programa.getVector().elementAt(i));
+            }
+
+        }*/
+        //vectorToString(pr);
+        System.out.println("");
+        System.out.println("Ejecutandose...");
+
+        if (pr instanceof StackVector) {
+            StackVector programa = (StackVector) pr;
+            for (int i = 0; i < programa.size(); i++) {
+                /*if (programa.getVector().elementAt(i) instanceof StackVector) {
+                    ejecutar(programa.getVector().elementAt(i));
+                } else {
+                    System.out.println(programa.getVector().elementAt(i));
+                }*/
+                ejecutar(programa.getVector().elementAt(i));
+            }
+        } else if (pr instanceof String) {
+            System.out.println(pr);
+        }
+
+
+
+
+        return "";
+
     }
 
-    public void vectorToString(StackVector programaClean) {
-        for (int i = 0; i < programaClean.size(); i++) {
-            if (programaClean.getVector().elementAt(i).getClass() == programaClean.getClass()) {
-                vectorToString((StackVector) programaClean.getVector().elementAt(i));
-            } else {
-                System.out.println(programaClean.getVector().elementAt(i));
+    public Object stringA_Tipo(String dato) {
+        try {
+            return Integer.parseInt(dato);
+        } catch (NumberFormatException exc) {
+            try {
+                return Float.parseFloat(dato);
+            } catch (NumberFormatException exc2) {
+                return dato;
             }
         }
+    }
+
+    public void vectorToString(Object pr) {
+
+        if (pr instanceof StackVector) {
+            StackVector programa = (StackVector) pr;
+            for (int i = 0; i < programa.size(); i++) {
+                if (programa.getVector().elementAt(i) instanceof StackVector) {
+                    vectorToString((StackVector) programa.getVector().elementAt(i));
+                } else {
+                    System.out.println(programa.getVector().elementAt(i));
+                }
+            }
+        } else {
+            System.out.println("Problema");
+        }
+
     }
 
 }
