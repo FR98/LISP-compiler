@@ -81,7 +81,6 @@ public class InterpreteLISP {
             for (int i = 0; i < programa.size(); i++) {
                 System.out.println(programa.getVector().elementAt(i));
             }
-
         }*/
         //vectorToString(pr);
         //System.out.println("");
@@ -89,8 +88,8 @@ public class InterpreteLISP {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             for (int i = 0; i < programa.size(); i++) {
-                ejecutar(programa.getVector().elementAt(i));
-                //reconocer(programa.getVector().elementAt(i));
+                //ejecutar(programa.getVector().elementAt(i));
+                reconocer(programa.getVector().elementAt(i));
             }
 
         } else if (pr instanceof String) {
@@ -106,12 +105,11 @@ public class InterpreteLISP {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             Object sec = (programa.getVector().firstElement());
-            System.out.println(sec);
             if (sec instanceof String) {
+                ejecutar(programa);
                 if (sec.equals("+")) {
                     //TODO
                     System.out.println("SUMA");
-                    System.out.println(sec);
                 } else if (sec.equals("-")) {
                     //TODO
                 } else if (sec.equals("*")) {
@@ -145,7 +143,7 @@ public class InterpreteLISP {
 
         } else if (pr instanceof String) {
             System.out.println(pr);
-        } else if (pr instanceof Integer) {
+        } else if (pr instanceof  Integer) {
             System.out.println(pr);
         }
 
