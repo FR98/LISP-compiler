@@ -7,19 +7,19 @@ import java.util.List;
 
 public class InterpreteLISP {
 
-    Programa programaSucio;
-    HashMap<String, StackVector> funciones = new HashMap<>();
+    private Programa programaSucio;
+    private HashMap<String, StackVector> funciones = new HashMap<>();
 
-    InterpreteLISP(Programa programaLeido) throws Exception {
+    InterpreteLISP(Programa programaLeido) {
         this.programaSucio = programaLeido;
         interpretar();
     }
 
-    public void interpretar() throws Exception {
+    private void interpretar() {
         ejecutar(leerPrograma(limpiarPrograma()));
     }
 
-    public StackVector<Object> limpiarPrograma() {
+    private StackVector<Object> limpiarPrograma() {
         StackVector<Object> stack = new StackVector<>();
         Programa programa = new Programa();
         String programaClean;
@@ -55,7 +55,7 @@ public class InterpreteLISP {
     /**
      * Lee el archivo .lisp linea por linea
      */
-    public Object leerPrograma(StackVector<Object> programa) throws Exception {
+    private Object leerPrograma(StackVector<Object> programa) {
         if (programa.empty()) {
             throw new IllegalArgumentException("Unexpected EOF while reading");
         }
@@ -74,32 +74,19 @@ public class InterpreteLISP {
         }
     }
 
-    public Object ejecutar(Object pr) {
-        /*
+    private void ejecutar(Object pr) {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             for (int i = 0; i < programa.size(); i++) {
-                System.out.println(programa.getVector().elementAt(i));
-            }
-        }*/
-        //vectorToString(pr);
-        //System.out.println("");
-
-        if (pr instanceof StackVector) {
-            StackVector programa = (StackVector) pr;
-            for (int i = 0; i < programa.size(); i++) {
-                //ejecutar(programa.getVector().elementAt(i));
                 reconocer(programa.getVector().elementAt(i));
             }
 
         } else if (pr instanceof String) {
             reconocer(pr);
         }
-
-        return "";
     }
 
-    public Object reconocer(Object pr) {
+    private Object reconocer(Object pr) {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             Object sec = (programa.getVector().firstElement());
@@ -193,7 +180,7 @@ public class InterpreteLISP {
         return pr;
     }
 
-    public Object stringA_Tipo(String dato) {
+    private Object stringA_Tipo(String dato) {
         try {
             return Integer.parseInt(dato);
         } catch (NumberFormatException exc) {
@@ -205,7 +192,7 @@ public class InterpreteLISP {
         }
     }
 
-    public String isAtom(Object algo) {
+    private String isAtom(Object algo) {
         if (algo instanceof String) {
             return "TRUE";
         } else if (algo instanceof Integer) {
@@ -215,7 +202,7 @@ public class InterpreteLISP {
         }
     }
 
-    public String esIgual(Object e1, Object e2) {
+    private String esIgual(Object e1, Object e2) {
         if (e1.equals(e2)) {
             return "TRUE";
         } else {
@@ -223,31 +210,23 @@ public class InterpreteLISP {
         }
     }
 
-    public Boolean comparar(String comp, Integer e1, Integer e2) {
+    private Boolean comparar(String comp, Integer e1, Integer e2) {
         if (comp.equals("<")) {
-            if (e1 < e2) {
-                return true;
-            } else {
-                return false;
-            }
+            return e1 < e2;
         } else if (comp.equals(">")){
-            if (e1 > e2) {
-                return true;
-            } else {
-                return false;
-            }
+            return e1 > e2;
         }
 
         return false;
     }
 
-    public void vectorToString(Object pr) {
+    private void vectorToString(Object pr) {
 
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
             for (int i = 0; i < programa.size(); i++) {
                 if (programa.getVector().elementAt(i) instanceof StackVector) {
-                    vectorToString((StackVector) programa.getVector().elementAt(i));
+                    vectorToString(programa.getVector().elementAt(i));
                 } else {
                     System.out.println(programa.getVector().elementAt(i));
                 }

@@ -40,7 +40,15 @@
 ;9
 ;1
 ;20
-;2 Hola Mundo
-;"Como te llamas ? " Hello Willi!
+;2
+;T
+;NIL
+;T
+;NIL
+;T
+;NIL
+;T
+;NIL Hola Mundo
+;"Como te llamas? " Hello Willi!
 ;
 ;6

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Programa {
 
-    ArrayList<String> lineas;
+    private ArrayList<String> lineas;
 
     public Programa(ArrayList<String> instrucciones) {
         this.lineas = instrucciones;
