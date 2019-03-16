@@ -69,16 +69,4 @@ public class StackVector<E> extends StackAC<E> {
         return vector.size();
     }
 
-    public String toStringA()
-    {
-        StringBuffer sb = new StringBuffer();
-        int i;
-
-        sb.append("<StackVector:");
-        for (i = vector.size()-1; i >= 0; i--)
-        {
-            sb.append(" "+i);
-        }
-        return sb.toString()+">";
-    }
 }
