@@ -151,10 +151,18 @@ public class InterpreteLISP {
                     return comparar(">",e1, e2);
 
                 } else if (((String) sec).toUpperCase().equals("COND")) {
-                    //TODO
-                    for (int i = 0; i < programa.size(); i++) {
-                        //System.out.println(reconocer(programa.getVector().elementAt(1)));
+                    for (int i = 1; i < programa.size(); i++) {
+                        System.out.println();
+                        if (programa.getVector().elementAt(i) instanceof StackVector) {
+                            StackVector cond = (StackVector) programa.getVector().elementAt(i);
+                            Object eval = cond.getVector().elementAt(0);
+                            String res = (String) cond.getVector().elementAt(1);
+
+                            vectorToString(eval);
+                            System.out.println(res);
+                        }
                     }
+                    System.out.println();
 
 
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
