@@ -193,45 +193,19 @@ public class InterpreteLISP {
                                 ingresados.push(reconocer(programa.getVector().elementAt(i)));
                             }
 
-                            //vectorToString(parametros);
-
                             StackVector funcionNueva = new StackVector();
-
-                            System.out.println();
                             for (int i = 3; i < funcion.size(); i++) {
                                 funcionNueva.push(funcion.getVector().elementAt(i));
                             }
 
-                            for (int i = 0; i < parametros.size(); i++) {
-                                String parametro = (String) parametros.getVector().elementAt(i);
-                                String ingresado = (String) ingresados.getVector().elementAt(i);
-
-                                for (int j = 0; j < funcionNueva.size(); j++) {
-
-                                    if (funcionNueva.getVector().elementAt(j) instanceof StackVector) {
-                                        StackVector p = (StackVector) funcionNueva.getVector().elementAt(j);
-                                        for (int h = 0; h < p.size(); h++) {
-                                            if (p.getVector().elementAt(h) instanceof StackVector) {
-                                                vectorToString(p.getVector().elementAt(h));
-                                            } else {
-
-                                                System.out.println("HOLABVCF");
-                                                if (p.getVector().elementAt(h) == parametro) {
-                                                    funcionNueva.getVector().set(i, ingresado);
-
-                                                }
-
-                                            }
-                                        }
-                                    } else {
-                                        System.out.print("Problema");
-                                    }
-                                }
-                            }
-
-                            Object resultado = reconocer(funcionNueva);
+                            System.out.println();
                             vectorToString(funcionNueva);
-
+                            System.out.println();
+                            Object funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
+                            Object resultado = reconocer(funcionOperable);
+                            System.out.println();
+                            vectorToString(funcionOperable);
+                            System.out.println();
 
                             System.out.println();
                             System.out.print(sec+" (");
@@ -290,6 +264,33 @@ public class InterpreteLISP {
         }
 
         return false;
+    }
+
+    private Object cambiarParametros(StackVector parametros, StackVector ingresados, StackVector funcionNueva) {
+        for (int i = 0; i < parametros.size(); i++) {
+            String parametro = (String) parametros.getVector().elementAt(i);
+            String ingresado = (String) ingresados.getVector().elementAt(i);
+
+            for (int j = 0; j < funcionNueva.size(); j++) {
+
+                if (funcionNueva.getVector().elementAt(j) instanceof StackVector) {
+                    StackVector p = (StackVector) funcionNueva.getVector().elementAt(j);
+                    for (int h = 0; h < p.size(); h++) {
+                        if (p.getVector().elementAt(h) instanceof StackVector) {
+                            cambiarParametros(parametros, ingresados, (StackVector) p.getVector().elementAt(h));
+                        } else {
+                           if (p.getVector().elementAt(h).equals(parametro)) {
+                               System.out.println();
+                               return funcionNueva.getVector().set(i, ingresado);
+                            }
+                        }
+                    }
+                } else {
+                    return ("Problema");
+                }
+            }
+        }
+        return "";
     }
 
     private void vectorToString(Object pr) {
