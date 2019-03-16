@@ -118,10 +118,7 @@ public class InterpreteLISP {
 
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
                     String nombre = (String) reconocer(programa.getVector().elementAt(1));
-                    StackVector parametro = (StackVector) programa.getVector().elementAt(2);
                     this.funciones.put(nombre, programa);
-                    //TODO: FALTA LEER LA FUNCION
-                    //System.out.println(nombre+" ("+parametro.getVector().firstElement()+") {}");
 
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     Object algo = reconocer(programa.getVector().elementAt(1));
@@ -199,13 +196,13 @@ public class InterpreteLISP {
                             }
 
                             StackVector funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
-                            Object resultado = reconocer(funcionOperable);
                             vectorToString(funcionOperable);
                             System.out.println();
                             System.out.print(sec+" (");
                             vectorToString(ingresados);
                             System.out.print(") = ");
                             System.out.println(reconocer(funcionOperable));
+                            return reconocer(funcionOperable);
 
                         }
                     }
@@ -272,7 +269,7 @@ public class InterpreteLISP {
 
                     for (int j = 0; j < parametros.size(); j++) {
                         String parametro = (String) parametros.getVector().elementAt(j);
-                        String ingresado = (String) ingresados.getVector().elementAt(j);
+                        Object ingresado = ingresados.getVector().elementAt(j);
 
                         if (funcionOperable.getVector().elementAt(i) instanceof StackVector) {
                             cambiarParametros(parametros, ingresados, (StackVector) funcionOperable.getVector().elementAt(i));

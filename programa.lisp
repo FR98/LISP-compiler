@@ -15,7 +15,6 @@
     ;(format t "Hello ~a! ~%" name)
     ;(print name)
     (ATOM name)
-    (ATOM (LIST 1 name 3 apellido 5))
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >
@@ -36,7 +35,7 @@
 )
 
 ;Otras
-(hello-you "Willi" "RO")
+(hello-you 2 RO)
 
 (format t "Hola Mundo")
 (print "Como te llamas? ")
