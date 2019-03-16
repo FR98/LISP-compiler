@@ -28,8 +28,8 @@
 
 ;Condiciones
 (print
-    (COND ((< 4 5) "suspenso")
-          ((< 4 7) "aprobado")
+    (COND ((< 6 5) "suspenso")
+          ((< 6 7) "aprobado")
     )
 )
 

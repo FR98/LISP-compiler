@@ -174,11 +174,28 @@ public class InterpreteLISP {
                     return comparar(">",e1, e2);
 
                 } else if (((String) sec).toUpperCase().equals("COND")) {
-                    //TODO
-                    for (int i = 0; i < programa.size(); i++) {
-                        //System.out.println(reconocer(programa.getVector().elementAt(1)));
+                    StackVector condiciones = new StackVector();
+                    StackVector retornos = new StackVector();
+                    for (int i = 1; i < programa.size(); i++) {
+                        if (programa.getVector().elementAt(i) instanceof StackVector) {
+                            StackVector cond = (StackVector) programa.getVector().elementAt(i);
+                            Object eval = cond.getVector().elementAt(0);
+                            Object res = cond.getVector().elementAt(1);
+                            condiciones.push(eval);
+                            retornos.push(res);
+                        }
                     }
+                    System.out.println();
 
+                    for (int i = 0; i < condiciones.size(); i++) {
+                        if (reconocer(condiciones.getVector().elementAt(i)) instanceof Boolean) {
+                            Boolean bool = (Boolean) reconocer(condiciones.getVector().elementAt(i));
+
+                            if (bool) {
+                                return retornos.getVector().elementAt(i);
+                            }
+                        }
+                    }
 
                 } else if (((String) sec).toUpperCase().equals("FORMAT")) {
                     //TODO
@@ -258,13 +275,13 @@ public class InterpreteLISP {
      * @param algo valor ingresado
      * @return el estado, si no es un string o integer es false
      */
-    private String isAtom(Object algo) {
+    private Boolean isAtom(Object algo) {
         if (algo instanceof String) {
-            return "TRUE";
+            return true;
         } else if (algo instanceof Integer) {
-            return "TRUE";
+            return true;
         } else {
-            return "NIL";
+            return false;
         }
     }
 
@@ -274,11 +291,11 @@ public class InterpreteLISP {
      * @param e2 objeto 2
      * @return estado booleano
      */
-    private String esIgual(Object e1, Object e2) {
+    private Boolean esIgual(Object e1, Object e2) {
         if (e1.equals(e2)) {
-            return "TRUE";
+            return true;
         } else {
-            return "NIL";
+            return false;
         }
     }
 
