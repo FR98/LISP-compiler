@@ -22,7 +22,7 @@ public class Main {
             );
             lines.forEach(archivo::add);
         } catch (IOException e ){
-            System.out.println("Ha ocurrido un error");
+            System.out.println("Ha ocurrido un error, archivo no encontrado");
         }
 
         Programa programa = new Programa(archivo);
