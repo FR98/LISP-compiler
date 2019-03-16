@@ -33,6 +33,16 @@
     )
 )
 
+(print
+    (*
+        (COND
+            ((= 7 1) 1)
+            ((ATOM 1) 6))
+        )
+        7
+    )
+)
+
 ;Otras
 (hello-you Willi RO)
 

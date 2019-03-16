@@ -192,7 +192,13 @@ public class InterpreteLISP {
                             Boolean bool = (Boolean) reconocer(condiciones.getVector().elementAt(i));
 
                             if (bool) {
-                                return retornos.getVector().elementAt(i);
+                                /*
+                                if ((retornos.getVector().elementAt(i) instanceof String)) {
+                                    return stringA_Tipo((String) retornos.getVector().elementAt(i));
+                                } else if ((retornos.getVector().elementAt(i) instanceof Integer)) {
+                                    return retornos.getVector().elementAt(i);
+                                }*/
+                                return reconocer(retornos.getVector().elementAt(i));
                             }
                         }
                     }
