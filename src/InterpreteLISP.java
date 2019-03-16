@@ -112,131 +112,130 @@ public class InterpreteLISP {
     private Object reconocer(Object pr) {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
-            Object sec = (programa.getVector().firstElement());
-            if (sec instanceof String) {
-                ejecutar(programa);
-                if (sec.equals("+")) {
-                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return num1 + num2;
+            if (programa.size() > 0) {
+                Object sec = (programa.getVector().firstElement());
+                if (sec instanceof String) {
+                    ejecutar(programa);
+                    if (sec.equals("+")) {
+                        Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return num1 + num2;
 
-                } else if (sec.equals("-")) {
-                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return num1 - num2;
+                    } else if (sec.equals("-")) {
+                        Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return num1 - num2;
 
-                } else if (sec.equals("*")) {
-                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return num1 * num2;
+                    } else if (sec.equals("*")) {
+                        Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return num1 * num2;
 
-                } else if (sec.equals("/")) {
-                    Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return num1 / num2;
+                    } else if (sec.equals("/")) {
+                        Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return num1 / num2;
 
-                } else if (((String) sec).toUpperCase().equals("DEFUN")) {
-                    String nombre = (String) reconocer(programa.getVector().elementAt(1));
-                    this.funciones.put(nombre, programa);
+                    } else if (((String) sec).toUpperCase().equals("DEFUN")) {
+                        String nombre = (String) reconocer(programa.getVector().elementAt(1));
+                        this.funciones.put(nombre, programa);
 
-                } else if (((String) sec).toUpperCase().equals("ATOM")) {
-                    Object algo = reconocer(programa.getVector().elementAt(1));
-                    return isAtom(algo);
+                    } else if (((String) sec).toUpperCase().equals("ATOM")) {
+                        Object algo = reconocer(programa.getVector().elementAt(1));
+                        return isAtom(algo);
 
-                } else if (((String) sec).toUpperCase().equals("LIST")) {
-                    List miLista = new ArrayList();
-                    StringBuilder miListaString = new StringBuilder();
-                    for (int i = 1; i < programa.size(); i++) {
-                        miLista.add(reconocer(programa.getVector().elementAt(i)));
-                        miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
-                    }
-                    return miLista;
-
-                } else if (((String) sec).toUpperCase().equals("EQUAL")) {
-                    List lst1 = (List) reconocer(programa.getVector().elementAt(1));
-                    List lst2 = (List) reconocer(programa.getVector().elementAt(2));
-                    return esIgual(lst1, lst2);
-
-                } else if (sec.equals("=") || ((String) sec).toUpperCase().equals("EQ")) {
-                    Object e1 = reconocer(programa.getVector().elementAt(1));
-                    Object e2 = reconocer(programa.getVector().elementAt(2));
-                    return esIgual(e1, e2);
-
-                } else if (sec.equals("<")) {
-                    Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return comparar("<",e1, e2);
-
-                } else if (sec.equals(">")) {
-                    Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
-                    Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    return comparar(">",e1, e2);
-
-                } else if (((String) sec).toUpperCase().equals("COND")) {
-                    StackVector condiciones = new StackVector();
-                    StackVector retornos = new StackVector();
-                    for (int i = 1; i < programa.size(); i++) {
-                        if (programa.getVector().elementAt(i) instanceof StackVector) {
-                            StackVector cond = (StackVector) programa.getVector().elementAt(i);
-                            Object eval = cond.getVector().elementAt(0);
-                            Object res = cond.getVector().elementAt(1);
-                            condiciones.push(eval);
-                            retornos.push(res);
+                    } else if (((String) sec).toUpperCase().equals("LIST")) {
+                        List miLista = new ArrayList();
+                        StringBuilder miListaString = new StringBuilder();
+                        for (int i = 1; i < programa.size(); i++) {
+                            miLista.add(reconocer(programa.getVector().elementAt(i)));
+                            miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
                         }
-                    }
+                        return miLista;
 
-                    for (int i = 0; i < condiciones.size(); i++) {
-                        if (reconocer(condiciones.getVector().elementAt(i)) instanceof Boolean) {
-                            Boolean bool = (Boolean) reconocer(condiciones.getVector().elementAt(i));
-                            if (bool) {
-                                return reconocer(retornos.getVector().elementAt(i));
+                    } else if (((String) sec).toUpperCase().equals("EQUAL")) {
+                        List lst1 = (List) reconocer(programa.getVector().elementAt(1));
+                        List lst2 = (List) reconocer(programa.getVector().elementAt(2));
+                        return esIgual(lst1, lst2);
+
+                    } else if (sec.equals("=") || ((String) sec).toUpperCase().equals("EQ")) {
+                        Object e1 = reconocer(programa.getVector().elementAt(1));
+                        Object e2 = reconocer(programa.getVector().elementAt(2));
+                        return esIgual(e1, e2);
+
+                    } else if (sec.equals("<")) {
+                        Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return comparar("<",e1, e2);
+
+                    } else if (sec.equals(">")) {
+                        Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
+                        Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
+                        return comparar(">",e1, e2);
+
+                    } else if (((String) sec).toUpperCase().equals("COND")) {
+                        StackVector condiciones = new StackVector();
+                        StackVector retornos = new StackVector();
+                        for (int i = 1; i < programa.size(); i++) {
+                            if (programa.getVector().elementAt(i) instanceof StackVector) {
+                                StackVector cond = (StackVector) programa.getVector().elementAt(i);
+                                Object eval = cond.getVector().elementAt(0);
+                                Object res = cond.getVector().elementAt(1);
+                                condiciones.push(eval);
+                                retornos.push(res);
                             }
                         }
-                    }
 
-                } else if (((String) sec).toUpperCase().equals("FORMAT")) {
-                    //TODO
-
-                } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
-                    //TODO
-
-                } else if (((String) sec).toUpperCase().equals("SETF")) {
-                    //TODO
-
-                } else if (((String) sec).toUpperCase().equals("PRINT")) {
-                    StringBuilder printString = new StringBuilder();
-                    for (int i = 1; i < programa.size(); i++) {
-                        printString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
-                    }
-                    System.out.println(printString);
-
-                } else {
-                    StackVector funcion = this.funciones.get(sec);
-                    if (funcion != null) {
-                        if (programa.size() >= 2) {
-                            StackVector parametros = (StackVector) funcion.getVector().elementAt(2);
-                            StackVector ingresados = new StackVector<Object>();
-                            for (int i = 1; i < programa.size(); i++) {
-                                ingresados.push(reconocer(programa.getVector().elementAt(i)));
+                        for (int i = 0; i < condiciones.size(); i++) {
+                            if (reconocer(condiciones.getVector().elementAt(i)) instanceof Boolean) {
+                                Boolean bool = (Boolean) reconocer(condiciones.getVector().elementAt(i));
+                                if (bool) {
+                                    return reconocer(retornos.getVector().elementAt(i));
+                                }
                             }
+                        }
 
-                            StackVector funcionNueva = new StackVector();
-                            for (int i = 3; i < funcion.size(); i++) {
-                                funcionNueva.push(funcion.getVector().elementAt(i));
+                    } else if (((String) sec).toUpperCase().equals("FORMAT")) {
+                        //TODO
+
+                    } else if (((String) sec).toUpperCase().equals("DEFVAR")) {
+                        //TODO
+
+                    } else if (((String) sec).toUpperCase().equals("SETF")) {
+                        //TODO
+
+                    } else if (((String) sec).toUpperCase().equals("PRINT")) {
+                        StringBuilder printString = new StringBuilder();
+                        for (int i = 1; i < programa.size(); i++) {
+                            printString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
+                        }
+                        System.out.println(printString);
+
+                    } else {
+                        StackVector funcion = this.funciones.get(sec);
+                        if (funcion != null) {
+                            if (programa.size() >= 2) {
+                                StackVector parametros = (StackVector) funcion.getVector().elementAt(2);
+                                StackVector ingresados = new StackVector<Object>();
+                                for (int i = 1; i < programa.size(); i++) {
+                                    ingresados.push(reconocer(programa.getVector().elementAt(i)));
+                                }
+
+                                StackVector funcionNueva = new StackVector();
+                                for (int i = 3; i < funcion.size(); i++) {
+                                    funcionNueva.push(funcion.getVector().elementAt(i));
+                                }
+
+                                StackVector funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
+                                System.out.println();
+                                System.out.print(sec+" (");
+                                vectorToString(ingresados);
+                                System.out.print(") = ");
+                                //TODO: NO SE PORQUE IMPRIME LA DIRECCION
+                                //System.out.println("Deberia: "+reconocer(ejecutarFuncion(funcionOperable)));
+                                return ejecutarFuncion(funcionOperable);
+
                             }
-
-                            StackVector funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
-                            System.out.println();
-                            System.out.print(sec+" (");
-                            vectorToString(ingresados);
-                            System.out.print(") = ");
-                            //TODO: NO SE PORQUE IMPRIME LA DIRECCION
-                            vectorToString(funcionOperable);
-
-                            System.out.println(reconocer(funcionOperable));
-                            //System.out.println(reconocer(funcionOperable));
-                            return reconocer(funcionOperable);
-
                         }
                     }
                 }
@@ -246,6 +245,8 @@ public class InterpreteLISP {
             return pr;
         } else if (pr instanceof  Integer) {
             return pr;
+        } else {
+            System.out.println("Oh oh");
         }
         return pr;
     }
@@ -265,6 +266,23 @@ public class InterpreteLISP {
                 return dato;
             }
         }
+    }
+
+    private Object ejecutarFuncion(Object fun) {
+        StackVector funNuevo = new StackVector();
+        if (fun instanceof StackVector) {
+            StackVector programa = (StackVector) fun;
+            for (int i = 0; i < programa.size(); i++) {
+                if (programa.getVector().elementAt(i) instanceof StackVector) {
+                    ejecutarFuncion(programa.getVector().elementAt(i));
+                } else {
+                    funNuevo.push(programa.getVector().elementAt(i));
+                }
+            }
+        } else {
+            System.out.print("Problema");
+        }
+        return reconocer(funNuevo);
     }
 
     /**
