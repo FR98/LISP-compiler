@@ -202,7 +202,9 @@ public class InterpreteLISP {
                             vectorToString(ingresados);
                             System.out.print(") = ");
                             //TODO: NO SE PORQUE IMPRIME LA DIRECCION
-                            System.out.println(reconocer(funcionOperable));
+
+                            System.out.println(reconocer(funcionOperable.toStringA()));
+                            //System.out.println(reconocer(funcionOperable));
                             return reconocer(funcionOperable);
 
                         }
