@@ -198,9 +198,7 @@ public class InterpreteLISP {
                                 funcionNueva.push(funcion.getVector().elementAt(i));
                             }
 
-                            System.out.println();
-                            vectorToString(funcionNueva);
-                            System.out.println();
+
                             Object funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
                             Object resultado = reconocer(funcionOperable);
                             System.out.println();
@@ -266,31 +264,33 @@ public class InterpreteLISP {
         return false;
     }
 
-    private Object cambiarParametros(StackVector parametros, StackVector ingresados, StackVector funcionNueva) {
-        for (int i = 0; i < parametros.size(); i++) {
-            String parametro = (String) parametros.getVector().elementAt(i);
-            String ingresado = (String) ingresados.getVector().elementAt(i);
+    private StackVector cambiarParametros(StackVector parametros, StackVector ingresados, StackVector funcionNueva) {
+        StackVector funcionOperable = new StackVector();
 
-            for (int j = 0; j < funcionNueva.size(); j++) {
+        for (int i = 0; i < funcionNueva.size(); i++) {
+            for (int j = 0; j < parametros.size(); j++) {
+                String parametro = (String) parametros.getVector().elementAt(j);
+                String ingresado = (String) ingresados.getVector().elementAt(j);
 
-                if (funcionNueva.getVector().elementAt(j) instanceof StackVector) {
-                    StackVector p = (StackVector) funcionNueva.getVector().elementAt(j);
+                if (funcionNueva.getVector().elementAt(i) instanceof StackVector) {
+                    StackVector p = (StackVector) funcionNueva.getVector().elementAt(i);
                     for (int h = 0; h < p.size(); h++) {
                         if (p.getVector().elementAt(h) instanceof StackVector) {
                             cambiarParametros(parametros, ingresados, (StackVector) p.getVector().elementAt(h));
                         } else {
                            if (p.getVector().elementAt(h).equals(parametro)) {
-                               System.out.println();
-                               return funcionNueva.getVector().set(i, ingresado);
-                            }
+                               funcionOperable.push(ingresado);
+                            } else {
+                               funcionOperable.push(p.getVector().elementAt(h));
+                           }
                         }
                     }
                 } else {
-                    return ("Problema");
+                    System.out.println("Problema");
                 }
             }
         }
-        return "";
+        return funcionOperable;
     }
 
     private void vectorToString(Object pr) {
@@ -308,10 +308,6 @@ public class InterpreteLISP {
             System.out.print("Problema");
         }
 
-    }
-
-    private Object parametrosA_Ingresado() {
-        return "";
     }
 
 }
