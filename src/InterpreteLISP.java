@@ -5,20 +5,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Toda la logica para interpretar un lisp
+ */
 public class InterpreteLISP {
 
     private Programa programaSucio;
     private HashMap<String, StackVector> funciones = new HashMap<>();
 
+    /**
+     * Constructor
+     * @param programaLeido programa ingresado
+     */
     InterpreteLISP(Programa programaLeido) {
         this.programaSucio = programaLeido;
         interpretar();
     }
 
+    /**
+     * Ejecuta el archivo leido, elimina los comentarios, luego lo lee y por ultimo utiliza la recursividad
+     */
     private void interpretar() {
         ejecutar(leerPrograma(limpiarPrograma()));
     }
 
+    /**
+     * Limpia el programa leido, es decir, elimina los comentarios
+     * @return
+     */
     private StackVector<Object> limpiarPrograma() {
         StackVector<Object> stack = new StackVector<>();
         Programa programa = new Programa();
@@ -74,6 +88,10 @@ public class InterpreteLISP {
         }
     }
 
+    /**
+     * Permite la recusividad
+     * @param pr objeto stackvector creado
+     */
     private void ejecutar(Object pr) {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
@@ -86,6 +104,11 @@ public class InterpreteLISP {
         }
     }
 
+    /**
+     * Reconoce la operacion que se debe realizar al leerla en el programa lisp
+     * @param pr objeto stackvector
+     * @return el resultado de la operacion o instruccion encontrada
+     */
     private Object reconocer(Object pr) {
         if (pr instanceof StackVector) {
             StackVector programa = (StackVector) pr;
@@ -204,7 +227,7 @@ public class InterpreteLISP {
                             System.out.print(") = ");
                             //TODO: NO SE PORQUE IMPRIME LA DIRECCION
 
-                            System.out.println(reconocer(funcionOperable.toStringA()));
+                            System.out.println(reconocer(funcionOperable));
                             //System.out.println(reconocer(funcionOperable));
                             return reconocer(funcionOperable);
 
@@ -221,6 +244,11 @@ public class InterpreteLISP {
         return pr;
     }
 
+    /**
+     * Retorna el valor segun su tipo si en dado caso el tipo que esta declarado no es el correcto
+     * @param dato valor ingresado
+     * @return dato cambiado
+     */
     private Object stringA_Tipo(String dato) {
         try {
             return Integer.parseInt(dato);
@@ -233,6 +261,11 @@ public class InterpreteLISP {
         }
     }
 
+    /**
+     * Realiza la funcion atom mostrando true o nil (false) segun la sintaxis de lisp
+     * @param algo valor ingresado
+     * @return el estado, si no es un string o integer es false
+     */
     private String isAtom(Object algo) {
         if (algo instanceof String) {
             return "TRUE";
@@ -243,6 +276,12 @@ public class InterpreteLISP {
         }
     }
 
+    /**
+     * Para las funciones EQUAL y EQ, si los objetos son iguales es true, de lo contrario nil (false)
+     * @param e1 objeto 1
+     * @param e2 objeto 2
+     * @return estado booleano
+     */
     private String esIgual(Object e1, Object e2) {
         if (e1.equals(e2)) {
             return "TRUE";
@@ -251,6 +290,13 @@ public class InterpreteLISP {
         }
     }
 
+    /**
+     * Valida el tag
+     * @param comp string
+     * @param e1 int 1
+     * @param e2 int 2
+     * @return false
+     */
     private Boolean comparar(String comp, Integer e1, Integer e2) {
         if (comp.equals("<")) {
             return e1 < e2;
@@ -261,6 +307,13 @@ public class InterpreteLISP {
         return false;
     }
 
+    /**
+     * Realiza toda la logica de Defun en donde se cambia el valor del parametro por lo ingresado segun el lisp
+     * @param parametros reconocido en lisp (nombre de la variable)
+     * @param ingresados lo que desea el usuario
+     * @param funcionNueva en donde se almacena
+     * @return el stack con los parametros nuevos
+     */
     private StackVector cambiarParametros(StackVector parametros, StackVector ingresados, Object funcionNueva) {
         StackVector resultado = null;
 
@@ -296,6 +349,10 @@ public class InterpreteLISP {
         return resultado;
     }
 
+    /**
+     * Pasa el vector a un String para poder ser impreso
+     * @param pr objeto
+     */
     private void vectorToString(Object pr) {
 
         if (pr instanceof StackVector) {
