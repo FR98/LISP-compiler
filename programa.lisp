@@ -15,6 +15,7 @@
     ;(format t "Hello ~a! ~%" name)
     ;(print name)
     (ATOM name)
+    (ATOM (LIST 1 name 3 apellido 5))
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >

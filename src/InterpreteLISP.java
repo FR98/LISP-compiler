@@ -198,18 +198,14 @@ public class InterpreteLISP {
                                 funcionNueva.push(funcion.getVector().elementAt(i));
                             }
 
-
-                            Object funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
+                            StackVector funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
                             Object resultado = reconocer(funcionOperable);
-                            System.out.println();
                             vectorToString(funcionOperable);
-                            System.out.println();
-
                             System.out.println();
                             System.out.print(sec+" (");
                             vectorToString(ingresados);
                             System.out.print(") = ");
-                            System.out.println(resultado);
+                            System.out.println(reconocer(funcionOperable));
 
                         }
                     }
@@ -264,33 +260,39 @@ public class InterpreteLISP {
         return false;
     }
 
-    private StackVector cambiarParametros(StackVector parametros, StackVector ingresados, StackVector funcionNueva) {
-        StackVector funcionOperable = new StackVector();
+    private StackVector cambiarParametros(StackVector parametros, StackVector ingresados, Object funcionNueva) {
+        StackVector resultado = null;
 
-        for (int i = 0; i < funcionNueva.size(); i++) {
-            for (int j = 0; j < parametros.size(); j++) {
-                String parametro = (String) parametros.getVector().elementAt(j);
-                String ingresado = (String) ingresados.getVector().elementAt(j);
+        if (funcionNueva instanceof StackVector) {
+            StackVector funcionOperable = (StackVector) funcionNueva;
+            for (int i = 0; i < funcionOperable.size(); i++) {
+                if (funcionOperable.getVector().elementAt(i) instanceof StackVector) {
+                    cambiarParametros(parametros, ingresados, funcionOperable.getVector().elementAt(i));
+                } else {
 
-                if (funcionNueva.getVector().elementAt(i) instanceof StackVector) {
-                    StackVector p = (StackVector) funcionNueva.getVector().elementAt(i);
-                    for (int h = 0; h < p.size(); h++) {
-                        if (p.getVector().elementAt(h) instanceof StackVector) {
-                            cambiarParametros(parametros, ingresados, (StackVector) p.getVector().elementAt(h));
+                    for (int j = 0; j < parametros.size(); j++) {
+                        String parametro = (String) parametros.getVector().elementAt(j);
+                        String ingresado = (String) ingresados.getVector().elementAt(j);
+
+                        if (funcionOperable.getVector().elementAt(i) instanceof StackVector) {
+                            cambiarParametros(parametros, ingresados, (StackVector) funcionOperable.getVector().elementAt(i));
                         } else {
-                           if (p.getVector().elementAt(h).equals(parametro)) {
-                               funcionOperable.push(ingresado);
+                            if (funcionOperable.getVector().elementAt(i).equals(parametro)) {
+                                funcionOperable.getVector().set(i, ingresado);
                             } else {
-                               funcionOperable.push(p.getVector().elementAt(h));
-                           }
+                                funcionOperable.getVector().set(i, funcionOperable.getVector().elementAt(i));
+                            }
                         }
                     }
-                } else {
-                    System.out.println("Problema");
                 }
             }
+
+            resultado = funcionOperable;
+        } else {
+            System.out.print("Problema");
         }
-        return funcionOperable;
+
+        return resultado;
     }
 
     private void vectorToString(Object pr) {
