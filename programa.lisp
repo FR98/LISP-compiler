@@ -2,7 +2,6 @@
 ;;; Comentario
 ;; Comentario dentro del codigo
 ; Comentario despues de linea de codigo
-;(format t "Hola Mundo ~%")
 
 ;Operaciones Aritmeticas
 (print (+ 5 4))
@@ -13,7 +12,7 @@
 ;Definicion de funciones
 (defun hello-you (name apellido)
     ;(format t "Hello ~a! ~%" name)
-    (print name)
+    (print name apellido)
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >
@@ -37,35 +36,18 @@
     (*
         (COND
             ((= 7 1) 1)
-            ((ATOM 1) 6))
+            ((ATOM 1) 6)
         )
         7
     )
 )
 
-;Otras
+;Llamada de funcion y otras
+(print "Como te llamas? ")
 (hello-you Willi RO)
 
-(format t "Hola Mundo")
-(print "Como te llamas? ")
-(defvar name "Willi")
-(defvar num 0)
-(setf num 6)
-(print num)
-
-;Este programa retorna:
-;9
-;1
-;20
-;2
-;T
-;NIL
-;T
-;NIL
-;T
-;NIL
-;T
-;NIL Hola Mundo
-;"Como te llamas? " Hello Willi!
-;
-;6
+;(format t "Hola Mundo")
+;(defvar name "Willi")
+;(defvar num 0)
+;(setf num 6)
+;(print num)

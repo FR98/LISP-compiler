@@ -150,7 +150,6 @@ public class InterpreteLISP {
                         miLista.add(reconocer(programa.getVector().elementAt(i)));
                         miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
                     }
-                    //TODO: NO SE PORQUE SE IMPRIME DOBLE LA LISTA
                     return miLista;
 
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
@@ -185,19 +184,11 @@ public class InterpreteLISP {
                             retornos.push(res);
                         }
                     }
-                    System.out.println();
 
                     for (int i = 0; i < condiciones.size(); i++) {
                         if (reconocer(condiciones.getVector().elementAt(i)) instanceof Boolean) {
                             Boolean bool = (Boolean) reconocer(condiciones.getVector().elementAt(i));
-
                             if (bool) {
-                                /*
-                                if ((retornos.getVector().elementAt(i) instanceof String)) {
-                                    return stringA_Tipo((String) retornos.getVector().elementAt(i));
-                                } else if ((retornos.getVector().elementAt(i) instanceof Integer)) {
-                                    return retornos.getVector().elementAt(i);
-                                }*/
                                 return reconocer(retornos.getVector().elementAt(i));
                             }
                         }
@@ -235,12 +226,12 @@ public class InterpreteLISP {
                             }
 
                             StackVector funcionOperable = cambiarParametros(parametros, ingresados, funcionNueva);
-                            vectorToString(funcionOperable);
                             System.out.println();
                             System.out.print(sec+" (");
                             vectorToString(ingresados);
                             System.out.print(") = ");
                             //TODO: NO SE PORQUE IMPRIME LA DIRECCION
+                            vectorToString(funcionOperable);
 
                             System.out.println(reconocer(funcionOperable));
                             //System.out.println(reconocer(funcionOperable));
