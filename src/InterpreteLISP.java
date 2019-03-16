@@ -95,25 +95,21 @@ public class InterpreteLISP {
                 if (sec.equals("+")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(num1 + num2);
                     return num1 + num2;
 
                 } else if (sec.equals("-")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(num1 - num2);
                     return num1 - num2;
 
                 } else if (sec.equals("*")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(num1 * num2);
                     return num1 * num2;
 
                 } else if (sec.equals("/")) {
                     Integer num1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer num2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(num1 / num2);
                     return num1 / num2;
 
                 } else if (((String) sec).toUpperCase().equals("DEFUN")) {
@@ -122,7 +118,6 @@ public class InterpreteLISP {
 
                 } else if (((String) sec).toUpperCase().equals("ATOM")) {
                     Object algo = reconocer(programa.getVector().elementAt(1));
-                    System.out.println(isAtom(algo));
                     return isAtom(algo);
 
                 } else if (((String) sec).toUpperCase().equals("LIST")) {
@@ -133,31 +128,26 @@ public class InterpreteLISP {
                         miListaString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
                     }
                     //TODO: NO SE PORQUE SE IMPRIME DOBLE LA LISTA
-                    //System.out.println("Mi Lista: " + miListaString);
                     return miLista;
 
                 } else if (((String) sec).toUpperCase().equals("EQUAL")) {
                     List lst1 = (List) reconocer(programa.getVector().elementAt(1));
                     List lst2 = (List) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(esIgual(lst1, lst2));
                     return esIgual(lst1, lst2);
 
                 } else if (sec.equals("=") || ((String) sec).toUpperCase().equals("EQ")) {
                     Object e1 = reconocer(programa.getVector().elementAt(1));
                     Object e2 = reconocer(programa.getVector().elementAt(2));
-                    System.out.println(esIgual(e1, e2));
                     return esIgual(e1, e2);
 
                 } else if (sec.equals("<")) {
                     Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(comparar("<",e1, e2));
                     return comparar("<",e1, e2);
 
                 } else if (sec.equals(">")) {
                     Integer e1 = (Integer) reconocer(programa.getVector().elementAt(1));
                     Integer e2 = (Integer) reconocer(programa.getVector().elementAt(2));
-                    System.out.println(comparar(">",e1, e2));
                     return comparar(">",e1, e2);
 
                 } else if (((String) sec).toUpperCase().equals("COND")) {
@@ -177,8 +167,11 @@ public class InterpreteLISP {
                     //TODO
 
                 } else if (((String) sec).toUpperCase().equals("PRINT")) {
-                    //TODO
-                    //System.out.println(reconocer(programa));
+                    StringBuilder printString = new StringBuilder();
+                    for (int i = 1; i < programa.size(); i++) {
+                        printString.append(reconocer(programa.getVector().elementAt(i))).append(" ");
+                    }
+                    System.out.println(printString);
 
                 } else {
                     StackVector funcion = this.funciones.get(sec);

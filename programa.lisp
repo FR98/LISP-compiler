@@ -13,8 +13,7 @@
 ;Definicion de funciones
 (defun hello-you (name apellido)
     ;(format t "Hello ~a! ~%" name)
-    ;(print name)
-    (ATOM name)
+    (print name)
 )
 
 ;Predicados ATOM, LIST, EQUAL, <, >
@@ -35,7 +34,7 @@
 )
 
 ;Otras
-(hello-you 2 RO)
+(hello-you Willi RO)
 
 (format t "Hola Mundo")
 (print "Como te llamas? ")
